@@ -6,26 +6,13 @@ reddit = praw.Reddit(client_id='QZennBK3huGPAQ',
                      password='5yv545b1',
                      user_agent='crawler1')
 
-subreddit = reddit.subreddit('tifu')
+front_page = reddit.front.hot()
 
-hot_tifu = subreddit.hot(limit=10)
-
-
-front_page = reddit.front.hot(limit=100)
-
-for submission in hot_tifu:
+for submission in frontpage.stream.submissions():
     if not submission.stickied:
-        print('Title: ', submission.title, submission.url, '\n-----------')
-# for submission in hot_python:
-#     if not submission.stickied:
-#         print('Title: {}, ups: {}, downs {}, comments: {}'.format(submission.title,
-#                                                     submission.ups,
-#                                                     submission.downs,
-#                                                     submission.num_comments))
+        print('Title: {}, ups: {}, downs {}, comments: {}'.format(submission.title,
+                                                    submission.ups,
+                                                    submission.downs,
+                                                    submission.num_comments))
 
-        submission.comments.replace_more(limit=0)
-        comments = submission.comments.list()
-        for comment in comments:
-            print(20*'-')
-            print(comment.body)
 
